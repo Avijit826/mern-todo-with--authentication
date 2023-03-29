@@ -24,6 +24,15 @@ const getTodos = (req, res) => {
         })
       )
   }
+  const getTodoById = (req, res) => {
+    Todo.findById(req.params.id)
+      .then((todo) => {
+        res.json(todo)
+      })
+      .catch((err) =>
+        res.status(404).json({ message: "no todo found", error: err.message })
+      )
+  }
   const updateTodo = (req, res) => {
     Todo.findByIdAndUpdate(req.params.id, req.body)
       .then((data) => {
@@ -35,7 +44,6 @@ const getTodos = (req, res) => {
           .json({ error: "unable to update todo", message: err.message })
       )
   }
-  
   const deleteTodo = (req, res) => {
     Todo.findByIdAndRemove(req.params.id, req.body)
       .then((data) =>
@@ -51,7 +59,6 @@ const getTodos = (req, res) => {
   }
   
   // -----------------Tasks Controllers -----------------
-  
   const getTasks = (req, res) => {
     Todo.findById(req.params.id)
       .then((todo) => {
@@ -61,14 +68,12 @@ const getTodos = (req, res) => {
         res.status(404).json({ message: "no todo found", error: err.message })
       )
   }
-  
   const addTask = async (req, res) => {
     const todo = await Todo.findById(req.params.id)
     todo.tasks.push(req.body)
     const saveTodo = await todo.save()
     res.json(saveTodo)
   }
-  
   const updateTask = async (req, res) => {
     const todo = await Todo.findById(req.params.id)
     const { task } = req.body
@@ -85,7 +90,6 @@ const getTodos = (req, res) => {
     const saveTodo = await todo.save()
     res.json(saveTodo)
   }
-  
   const deleteTask = async (req, res) => {
     const todo = await Todo.findById(req.params.id)
     const taskIndex = todo.tasks.findIndex((t) => t.id === req.params.taskId)
@@ -97,6 +101,7 @@ const getTodos = (req, res) => {
   module.exports = {
     getTodos,
     createTodo,
+    getTodoById,
     updateTodo,
     deleteTodo,
     getTasks,
@@ -104,5 +109,4 @@ const getTodos = (req, res) => {
     updateTask,
     updateTaskStatus,
     deleteTask
-
 }
