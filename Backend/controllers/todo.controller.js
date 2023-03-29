@@ -69,33 +69,77 @@ const getTodos = (req, res) => {
       )
   }
   const addTask = async (req, res) => {
-    const todo = await Todo.findById(req.params.id)
-    todo.tasks.push(req.body)
-    const saveTodo = await todo.save()
-    res.json(saveTodo)
+    try {
+      const todo = await Todo.findById(req.params.id)
+      if (!todo) {
+        return res.status(404).json({ message: 'Todo not found' });
+      }
+      todo.tasks.push(req.body)
+      const saveTodo = await todo.save()
+      res.json(saveTodo)
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+    }
   }
   const updateTask = async (req, res) => {
-    const todo = await Todo.findById(req.params.id)
-    const { task } = req.body
-    const taskIndex = todo.tasks.findIndex((t) => t.id === req.params.taskId)
-    todo.tasks[taskIndex].task = task
-    const saveTodo = await todo.save()
-    res.json(saveTodo)
+    try {
+      const { id, taskId } = req.params;
+      const { task } = req.body;
+      const todo = await Todo.findById(id);
+      if (!todo) {
+        return res.status(404).json({ message: 'Todo not found' });
+      }
+      const taskIndex = todo.tasks.findIndex((t) => t.id === taskId);
+      if (taskIndex === -1) {
+        return res.status(404).json({ message: 'Task not found' });
+      }
+      todo.tasks[taskIndex].task = task;
+      const saveTodo = await todo.save();
+      res.json(saveTodo);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+    }
   }
+  
   const updateTaskStatus = async (req, res) => {
-    const todo = await Todo.findById(req.params.id)
-    const { iscompleted } = req.body
-    const taskIndex = todo.tasks.findIndex((t) => t.id === req.params.taskId)
-    todo.tasks[taskIndex].iscompleted = iscompleted
-    const saveTodo = await todo.save()
-    res.json(saveTodo)
+    try {
+      const { id, taskId } = req.params;
+      const { iscompleted } = req.body;
+      const todo = await Todo.findById(id);
+      if (!todo) {
+        return res.status(404).json({ message: 'Todo not found' });
+      }
+      const taskIndex = todo.tasks.findIndex((t) => t.id === taskId);
+      if (taskIndex === -1) {
+        return res.status(404).json({ message: 'Task not found' });
+      }
+      todo.tasks[taskIndex].iscompleted = iscompleted;
+      const savedTodo = await todo.save();
+      res.json(savedTodo);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+    }
   }
   const deleteTask = async (req, res) => {
-    const todo = await Todo.findById(req.params.id)
-    const taskIndex = todo.tasks.findIndex((t) => t.id === req.params.taskId)
-    todo.tasks.splice(taskIndex, 1)
-    const saveTodo = await todo.save()
-    res.json(saveTodo)
+    try {
+      const todo = await Todo.findById(req.params.id)
+      if (!todo) {
+        return res.status(404).json({ message: 'Todo not found' });
+      }
+      const taskIndex = todo.tasks.findIndex((t) => t.id === req.params.taskId)
+      if (taskIndex === -1) {
+        return res.status(404).json({ message: 'Task not found' });
+      }
+      todo.tasks.splice(taskIndex, 1)
+      const saveTodo = await todo.save()
+      res.json(saveTodo)
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ message: 'Server error' })
+    }
   }
   
   module.exports = {
