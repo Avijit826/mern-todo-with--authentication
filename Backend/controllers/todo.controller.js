@@ -7,12 +7,14 @@ const getTodos = (req, res) => {
       .sort({ updatedAt: -1 })
       .then((todo) => {
         res.json(todo)
+        console.log(req.user.id)
       })
       .catch((err) =>
         res.status(404).json({ message: "no todo found", error: err.message })
       )
   }
   const createTodo = (req, res) => {
+    req.body.user = req.user.id
     Todo.create(req.body)
       .then((data) => {
         res.json({ message: "todo added successfully", data })

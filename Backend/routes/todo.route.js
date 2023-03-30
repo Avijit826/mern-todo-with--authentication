@@ -1,4 +1,5 @@
 const express = require("express")
+const auth = require("../config/auth")
 const router = express.Router()
 
 const {
@@ -14,8 +15,8 @@ const {
     deleteTask
 } = require('../controllers/todo.controller')
 
-router.get('/', getTodos)
-router.post('/', createTodo)
+router.get('/',auth, getTodos)
+router.post('/',auth, createTodo)
 router.get("/:id", getTodoById)
 router.put("/:id", updateTodo)
 router.delete("/:id", deleteTodo)
