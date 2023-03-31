@@ -1,9 +1,18 @@
-
-
+import { ContextProvider } from "./context/Context"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Home from "./Components/Home"
 function App() {
   return (
-    <p className='text-red-500 font-medium'>Tailwind</p>
-  );
+    <ContextProvider>
+      <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            {/* <Route path="/login" element={<LogIn />}></Route>
+            <Route path="/signup" element={<SignUp />}></Route> */}
+          </Routes>
+        </BrowserRouter>
+    </ContextProvider>
+  )
 }
 
-export default App;
+export default App
