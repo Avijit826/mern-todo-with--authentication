@@ -4,9 +4,10 @@ import axios from "axios"
 const Context = createContext()
 
 const ContextProvider = ({children}) =>{
+    const url = process.env.REACT_APP_API_URL
     const [todos, setTodos] = useState()
     const [update, setUpdate] = useState(false)
-    const [token, setToken] = useState("higo")
+    const [token, setToken] = useState("")
 
     const handleUpdate = () => {
         setUpdate(!update)
@@ -15,12 +16,25 @@ const ContextProvider = ({children}) =>{
         setToken("")
         handleUpdate()
     }
+    const getTodos = async () =>{
+        await axios.get(`${url}/todo`)
+        .then((res)=>{
+            console.log(res.data)
+            setTodos(res.data)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
     return(
         <Context.Provider
             value={{
                 token,
                 todos,
+                handleUpdate,
+                update,
                 handleLogout,
+                getTodos,
 
             }}>
             {children}
