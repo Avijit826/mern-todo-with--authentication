@@ -106,10 +106,7 @@ const ContextProvider = ({children}) =>{
       
       const updateTask = async (id, _id, data) => {
         await axios
-          .put(`${url}/todo/${id}/tasks/${_id}`, data,{
-            headers:{
-                'Authorization': "Bearer "+token
-            }})
+          .put(`${url}/todo/${id}/tasks/${_id}`, data,header)
           .then((res) => {
             console.log(res.data)
             handleUpdate()
@@ -122,10 +119,7 @@ const ContextProvider = ({children}) =>{
       
       const updateTaskStatus = async (id, _id, data) => {
         await axios
-          .put(`${url}/todo/${id}/task/${_id}`, data,{
-            headers:{
-                'Authorization': "Bearer "+token
-            }})
+          .put(`${url}/todo/${id}/task/${_id}`, data,header)
           .then((res) => {
             console.log(res.data)
             handleUpdate()
@@ -138,10 +132,7 @@ const ContextProvider = ({children}) =>{
       
       const deleteTask = async (id, _id) => {
         await axios
-          .delete(`${url}/todo/${id}/tasks/${_id}`,{
-            headers:{
-                'Authorization': "Bearer "+token
-            }})
+          .delete(`${url}/todo/${id}/tasks/${_id}`,header)
           .then((res) => {
             console.log(res.data)
             handleUpdate()

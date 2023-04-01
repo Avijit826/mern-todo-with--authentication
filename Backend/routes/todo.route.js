@@ -14,15 +14,15 @@ const {
     deleteTask
 } = require('../controllers/todo.controller')
 
-router.get('/',auth, getTodos)
-router.post('/', createTodo)
-router.put("/:id", updateTodo)
-router.delete("/:id", deleteTodo)
+router.get('/', auth, getTodos)
+router.post('/', auth, createTodo)
+router.put("/:id", auth, updateTodo)
+router.delete("/:id", auth, deleteTodo)
 
-router.get("/:id/tasks", getTasks)
-router.post("/:id/tasks", addTask)
-router.put("/:id/tasks/:taskId", updateTask)
-router.put("/:id/task/:taskId", updateTaskStatus)
-router.delete("/:id/tasks/:taskId", deleteTask)
+router.get("/:id/tasks", auth, getTasks)
+router.post("/:id/tasks", auth, addTask)
+router.put("/:id/tasks/:taskId", auth, updateTask)
+router.put("/:id/task/:taskId", auth, updateTaskStatus)
+router.delete("/:id/tasks/:taskId", auth, deleteTask)
 
 module.exports = router
