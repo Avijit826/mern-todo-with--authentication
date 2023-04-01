@@ -13,6 +13,7 @@ const getTodos = (req, res) => {
       )
   }
   const createTodo = (req, res) => {
+    req.body.user = req.user.id
     Todo.create(req.body)
       .then((data) => {
         res.json({ message: "todo added successfully", data })
