@@ -7,7 +7,7 @@ const ContextProvider = ({children}) =>{
     const url = process.env.REACT_APP_API_URL
     const [todos, setTodos] = useState()
     const [update, setUpdate] = useState(false)
-    const [token, setToken] = useState("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjI2MTA1OGI2MGU2ZDNiZGVmODA2OCIsImlhdCI6MTY4MDMzNTQ2NSwiZXhwIjoxNjgwMzUzNDY1fQ.yaTHNy1pJnjh_YC2StmioLTcS8PuwHQJ6-FeUsZVTjk")
+    const [token, setToken] = useState("")
     const header = { headers:{'Authorization': "Bearer "+token}}
 
     const handleUpdate = () => {
@@ -22,7 +22,7 @@ const ContextProvider = ({children}) =>{
     await axios
       .post(`${url}/login`, { email, password })
       .then((res) => {
-        setToken(res.data)
+        setToken(res.data.token)
         console.log(res.data)
       })
       .catch((error) => {
@@ -35,7 +35,7 @@ const ContextProvider = ({children}) =>{
     await axios
       .post(`${url}/signup`, { name, email, password })
       .then((res) => {
-        setToken(res.data)
+        setToken(res.data.token)
         console.log(res.data)
       })
       .catch((error) => {

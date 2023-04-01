@@ -1,11 +1,18 @@
 import React, { useContext, useEffect } from 'react'
 import { Context } from '../contexts/Context'
 import TodosList from "./TodosList"
+import { Link, useNavigate} from "react-router-dom"
 
 const Home = () => {
     const {token,getTodos,todos,update} = useContext(Context)
+    const navigate = useNavigate()
     useEffect(()=>{
-      getTodos()
+      if(!(token)){
+        navigate("/login")
+      }
+      if(token){
+        getTodos()
+      }
     },[update])
   return (
     <>
