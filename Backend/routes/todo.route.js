@@ -14,7 +14,7 @@ const {
     deleteTask
 } = require('../controllers/todo.controller')
 
-router.get('/', getTodos)
+router.get('/',auth, getTodos)
 router.post('/', createTodo)
 router.put("/:id", updateTodo)
 router.delete("/:id", deleteTodo)

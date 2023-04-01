@@ -22,7 +22,7 @@ const userLogin = async (req, res) => {
     })
     user.password = undefined
     user.token = token
-    res.status(201).json({id:user._id,token})
+    res.status(201).json({token})
   } catch (error) {
     console.error(`ERROR>>>...................\n${error}`)
   }
@@ -44,7 +44,7 @@ const userSignup = async (req, res) => {
     })
     newUser.token = token
     newUser.password = undefined
-    res.status(200).json({id:newUser._id,token})
+    res.status(200).json({token})
   } catch (err) {
     //TODO: Handle error efficiently
     console.error(`ERROR>>>...................\n${err}`)
