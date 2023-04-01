@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from 'react'
-import { Context } from '../context/Context'
-import TodosList from './TodosList'
+import { Context } from '../contexts/Context'
+import TodosList from "./TodosList"
 
 const Home = () => {
-    const {token,getTodos,update} = useContext(Context)
+    const {token,getTodos,todos,update} = useContext(Context)
     useEffect(()=>{
-        getTodos()
+      getTodos()
     },[update])
   return (
     <>
@@ -18,11 +18,11 @@ const Home = () => {
             Todos List
           </h1>
         </div>
-        <TodosList />
+        <TodosList/>
       </div>
-      
+
     </>
-  )
+    )
 }
 
 export default Home
