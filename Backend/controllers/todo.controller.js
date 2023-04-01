@@ -2,7 +2,7 @@ const Todo = require('../models/todo.model')
 
 const getTodos = (req, res) => {
     Todo.find({
-    //   user: req.params.userId // With User Auth
+      user: req.user.id // From User Auth
     })
       .sort({ updatedAt: -1 })
       .then((todo) => {
