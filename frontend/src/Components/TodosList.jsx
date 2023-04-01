@@ -3,7 +3,7 @@ import { Context } from "../contexts/Context"
 import SingleTodo from './SingleTodo'
 
 const TodosList = () => {
-    const { todos } = useContext(Context)
+    const { todos, search } = useContext(Context)
   return (
     <>
       {todos?.length ? null : (
@@ -176,11 +176,16 @@ const TodosList = () => {
       <div className="mx-auto pl-6 space-y-4 columns-1 sm:columns-2 lg:columns-3 xl:columns-4">
         {/* todo */}
         {todos
-          ? todos.map((data, index) =>
-        //    (data.user == userId) && 
-           (
-              <SingleTodo data={data} key={index} />
-            ))
+          ? todos.filter((data)=>{
+            if(data===""){
+              return data
+            } else if(data.title.toLowerCase().includes(search.toLowerCase())){
+              return data
+            }
+          }).map((data, index) =>
+          (
+             <SingleTodo data={data} key={index} />
+           ))
           : ""}
       </div>
     </>

@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 import { Context } from "../contexts/Context"
 
 const Header = () => {
-  const { handleLogout } = useContext(Context)
+  const { handleLogout, search, setSearch } = useContext(Context)
   return (
     <>
       <header className="p-4 bg-gray-600 bg-opacity-20 text-gray-800">
@@ -22,6 +22,8 @@ const Header = () => {
                 type="search"
                 name="Search"
                 placeholder="Search..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 className="w-40 py-2.5 pl-10 text-sm rounded-md sm:w-auto focus:outline-none bg-gray-100 text-gray-800 focus:bg-gray-50"
               />
             </div>

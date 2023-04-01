@@ -8,6 +8,7 @@ const ContextProvider = ({children}) =>{
     const [todos, setTodos] = useState()
     const [update, setUpdate] = useState(false)
     const [token, setToken] = useState("")
+    const [search, setSearch] = useState("")
     const header = { headers:{'Authorization': "Bearer "+token}}
 
     const handleUpdate = () => {
@@ -159,7 +160,9 @@ const ContextProvider = ({children}) =>{
                 addTask,
                 updateTask,
                 updateTaskStatus,
-                deleteTask
+                deleteTask,
+                search,
+                setSearch
 
             }}>
             {children}
