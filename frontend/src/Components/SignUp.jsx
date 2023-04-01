@@ -16,7 +16,6 @@ const SignUp = () => {
     e.preventDefault()
     const data = await userSignUp(name, email, pass)
     if (data === token) {
-      console.log(`Returned data ........................\n${data}`)
       navigate("/")
     }
   }

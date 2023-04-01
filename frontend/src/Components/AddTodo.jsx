@@ -3,7 +3,7 @@ import { Context } from "../contexts/Context"
 
 const AddTodo = () => {
   const [data, setData] = useState("")
-  const { handleUpdate,addTodo,userId } = useContext(Context)
+  const { addTodo } = useContext(Context)
 
   const handleChange = (e) => {
     setData(e.target.value)
@@ -13,12 +13,10 @@ const AddTodo = () => {
     e.preventDefault()
     data
       ? await addTodo({
-          title: data,
-          user:userId
+          title: data
         })
       : console.log("Enter Todo Name")
     setData("")
-    handleUpdate()
   }
 
   return (

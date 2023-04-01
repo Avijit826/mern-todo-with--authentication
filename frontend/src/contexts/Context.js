@@ -23,7 +23,6 @@ const ContextProvider = ({children}) =>{
       .post(`${url}/login`, { email, password })
       .then((res) => {
         setToken(res.data.token)
-        console.log(res.data)
       })
       .catch((error) => {
         console.error(`ERROR>>>...................\n${error.message}`)
@@ -36,7 +35,6 @@ const ContextProvider = ({children}) =>{
       .post(`${url}/signup`, { name, email, password })
       .then((res) => {
         setToken(res.data.token)
-        console.log(res.data)
       })
       .catch((error) => {
         console.error(`ERROR>>>...................\n${error.message}`)
@@ -54,6 +52,18 @@ const ContextProvider = ({children}) =>{
       .catch((err) => {
         console.log(err)
       })
+    }
+    const addTodo = async (data) => {
+      await axios
+        .post(`${url}/todo`, data,header)
+        .then((res) => {
+          console.log(res.data)
+          handleUpdate()
+        })
+        .catch((err) => {
+          console.log("Failed to create todo")
+          console.log(err.message)
+        })
     }
     const updateTodo = async (id, data) => {
         await axios
@@ -150,6 +160,7 @@ const ContextProvider = ({children}) =>{
                 update,
                 handleLogout,
                 getTodos,
+                addTodo,
                 userLogin,
                 userSignUp,
                 updateTodo,
