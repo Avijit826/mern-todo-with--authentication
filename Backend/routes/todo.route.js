@@ -5,7 +5,6 @@ const router = express.Router()
 const {
     getTodos,
     createTodo,
-    getTodoById,
     updateTodo,
     deleteTodo,
     getTasks,
@@ -16,8 +15,7 @@ const {
 } = require('../controllers/todo.controller')
 
 router.get('/', getTodos)
-router.post('/',auth, createTodo)
-router.get("/:id", getTodoById)
+router.post('/', createTodo)
 router.put("/:id", updateTodo)
 router.delete("/:id", deleteTodo)
 
